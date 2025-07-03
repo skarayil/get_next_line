@@ -6,92 +6,109 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:01:54 by skarayil          #+#    #+#             */
-/*   Updated: 2025/07/02 21:19:07 by skarayil         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:08:40 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_save_free(char **ptr)
+static char	*ft_extract_buffer(char *buf)
 {
-	if (ptr && *ptr)
+	char	*new;
+	size_t	len[2] = {0, 0};
+
+	if (!buf)
+		return (NULL);
+	while (buf[len[0]] && buf[len[0]] != '\n')
+		len[0]++;
+	len[0] += (buf[len[0]] == '\n');
+	if (!buf[len[0]])
+		return (free(buf), NULL);
+	while (buf[len[0] + len[1]])
+		len[1]++;
+	new = malloc(len[1] + 1);
+	if (!new)
+		return (free(buf), NULL);
+	len[1] = 0;
+	while (buf[len[0] + len[1]])
 	{
-		free(*ptr);
-		*ptr = (NULL);
+		new[len[1]] = buf[len[0] + len[1]];
+		len[1]++;
 	}
-	return (NULL);
+	new[len[1]] = '\0';
+	free(buf);
+	return (new);
 }
 
-static char	*ft_read_file(int fd, char *buffer)
-{
-	char	*temp_buffer;
-	char	*read_buffer;
-	int		bytes_read;
-
-	read_buffer = malloc(BUFFER_SIZE + 1);
-	if (!read_buffer)
-		return (ft_save_free(&buffer));
-	bytes_read = read(fd, read_buffer, BUFFER_SIZE);
-	if (bytes_read <= 0)
-	{
-		free(read_buffer);
-		if (bytes_read == 0)
-			return (buffer);
-		return (ft_save_free(&buffer));
-	}
-	read_buffer[bytes_read] = '\0';
-	temp_buffer = ft_join_strings(buffer, read_buffer);
-	ft_save_free(&buffer);
-	free(read_buffer);
-	return (temp_buffer);
-}
-
-static char	*ft_extract_line(char **buffer)
+static char	*ft_extract_line(char *buf)
 {
 	char	*line;
-	char	*data;
-	char	*pos;
+	size_t	line_end;
+	size_t	i;
 
-	pos = ft_find_character(*buffer, '\n');
-	if (pos)
+	if (!buf || !*buf)
+		return (NULL);
+	line_end = 0;
+	while (buf[line_end] && buf[line_end] != '\n')
+		line_end++;
+	line_end += (buf[line_end] == '\n');
+	line = (char *)malloc(line_end + 1);
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (i < line_end)
 	{
-		line = ft_create_substr(*buffer, 0, pos - *buffer + 1);
-		data = ft_duplicate_string(pos + 1);
-		ft_save_free(buffer);
-		*buffer = data;
+		line[i] = buf[i];
+		i++;
 	}
-	else
-	{
-		line = ft_duplicate_string(*buffer);
-		ft_save_free(buffer);
-	}
+	line[line_end] = '\0';
 	return (line);
+}
+
+static char	*ft_read_line(int fd, char *buffer)
+{
+	char			*temp;
+	ssize_t			bytes;
+
+	temp = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	*temp = '\0';
+	if (!temp)
+		return (ft_save_free(buffer, NULL));
+	bytes = 1;
+	while (bytes != 0 && (!ft_find_character(temp, '\n')))
+	{
+		bytes = read(fd, temp, BUFFER_SIZE);
+		if (bytes == -1)
+			return (ft_save_free(buffer, temp));
+		temp[bytes] = '\0';
+		buffer = ft_join_strings(buffer, temp);
+		if (!buffer)
+			return (ft_save_free(NULL, temp));
+	}
+	buffer[ft_string_length(buffer)] = '\0';
+	free (temp);
+	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
-	char		*line;
+	static char		*buffer;
+	char			*buffbuff;
+	char			*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!stash)
-		stash = ft_duplicate_string("");
-	if (!stash)
+	buffer = ft_read_line(fd, buffer);
+	if (!buffer)
 		return (NULL);
-	while (!ft_find_character(stash, '\n'))
+	buffbuff = buffer;
+	next_line = ft_extract_line(buffbuff);
+	if (!next_line)
 	{
-		stash = ft_read_file(fd, stash);
-		if (!stash)
-			return (NULL);
-		if (!*stash)
-			break ;
-	}
-	if (!*stash)
-	{
-		ft_save_free(&stash);
+		free(buffer);
+		buffer = NULL;
 		return (NULL);
 	}
-	line = ft_extract_line(&stash);
-	return (line);
+	buffer = ft_extract_buffer(buffer);
+	return (next_line);
 }

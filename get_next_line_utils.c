@@ -6,100 +6,75 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:02:47 by skarayil          #+#    #+#             */
-/*   Updated: 2025/07/02 21:11:55 by skarayil         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:16:49 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_string_length(const char *str)
+size_t	ft_string_length(const char *s)
 {
-	const char	*len = str;
-
-	while (*str)
-		str++;
-	return (str - len);
+	size_t	len;
+	if (s == NULL)
+	{
+		return (0);
+	}
+	len = 0;
+	while (*s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len); 
 }
 
-char	*ft_find_character(const char *str, int c)
+char	*ft_find_character(const char *s, int c)
 {
-    while (*str)
-    {
-        if (*str == (char)c)
-            return ((char *)str);
-        str++;
-    }
-    return (NULL);
+	while (*s && *s != (char)c)
+	{
+		s++;
+	}
+	if (*s == (char)c)
+	{
+		return ((char *)s);
+	}
+	return (NULL);
+}
+
+char	*ft_save_free(char *buffer, char *temp)
+{
+	if (buffer)
+		free(buffer);
+	if (temp)
+		free(temp);
+	return (NULL);
 }
 
 char	*ft_join_strings(char *s1, char *s2)
 {
-	size_t	len;
-	char	*ptr;
-	char	*total;
+	unsigned int	i;
+	unsigned int	j;
+	char			*res;
 
-    if (!s1 && !s2)
-        return (ft_duplicate_string(""));
-    if (!s1)
-        return (ft_duplicate_string(s2));
-    if (!s2)
-        return (ft_duplicate_string(s1));
-	len = ft_string_length(s1) + ft_string_length(s2);
-	total = malloc(len + 1);
-	if (!total)
-		return (NULL);
-	ptr = total;
-	while (*s1)
-		*ptr++ = *s1++;
-	while (*s2)
-		*ptr++ = *s2++;
-	*ptr = '\0';
-	return (total);
-}
-
-char	*ft_duplicate_string(const char *str)
-{
-	size_t	i;
-	size_t	len;
-	char	*copy;
-
-	len = ft_string_length(str) + 1;
-	copy = malloc(len);
-	if (!copy)
-		return (NULL);
+	res = malloc(sizeof(char) * (ft_string_length(s1) + ft_string_length(s2) + 1));
+	if (res == NULL)
+		return (ft_save_free((char *)s1, NULL));
 	i = 0;
-	while (i < len)
+	if (s1)
 	{
-		copy[i] = str[i];
-		i++;
+		while (s1[i])
+		{
+			res[i] = s1[i];
+			i++;
+		}
 	}
-	return (copy);
-}
-
-char	*ft_create_substr(const char *str, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	index;
-	size_t	str_len;
-	size_t	new_len;
-
-	if (!str)
-		return (NULL);
-	str_len = ft_string_length(str);
-	if (start > str_len)
-		return (ft_duplicate_string(""));
-	new_len = len;
-	if ((start + len) > str_len)
-		new_len = str_len - start;
-	sub = (char *)malloc(new_len + 1);
-	if (!sub)
-		return (NULL);
-	index = 0;
-	while (index < new_len)
+	j = 0;
+	while (s2[j])
 	{
-		sub[index] = str[start + index];
-		index++;
+		res[i + j] = s2[j];
+		j++;
 	}
-	sub[new_len] = '\0';
-	return (sub);
+	res[i + j] = '\0';
+	ft_save_free((char *)s1, NULL);
+	return (res);
 }
