@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 22:35:57 by skarayil          #+#    #+#             */
-/*   Updated: 2025/07/11 05:30:55 by skarayil         ###   ########.fr       */
+/*   Created: 2025/07/11 05:33:27 by skarayil          #+#    #+#             */
+/*   Updated: 2025/07/11 05:53:58 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*ft_end_of_file(char **line)
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1];
+	static char	buff[OPEN_MAX][BUFFER_SIZE + 1];
 	char		*line;
 	int			process;
 	int			r;
@@ -91,12 +91,12 @@ char	*get_next_line(int fd)
 	line = NULL;
 	while (42)
 	{
-		process = ft_process_check(&line, buff);
+		process = ft_process_check(&line, buff[fd]);
 		if (process == 1)
 			return (line);
 		if (process == -1)
 			return (NULL);
-		r = ft_read_check(fd, buff, &line);
+		r = ft_read_check(fd, buff[fd], &line);
 		if (r == -1)
 			return (NULL);
 		if (r == 0)
