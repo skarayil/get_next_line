@@ -14,8 +14,6 @@
 
 char	*ft_string_char(const char *s, int c)
 {
-	if (!s)
-		return (NULL);
 	while (*s)
 	{
 		if (*s == (char)c)
@@ -31,8 +29,6 @@ size_t	ft_string_length(const char *s)
 {
 	size_t	len;
 
-	if (!s)
-		return (0);
 	len = 0;
 	while (s[len])
 		len++;
