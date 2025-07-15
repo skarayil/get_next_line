@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 	int			process;
 	int			r;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 	line = NULL;
 	while (42)
