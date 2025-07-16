@@ -64,21 +64,6 @@ int main() {
 }
 ```
 
-### Fonksiyonlar:
-
-* **`get_next_line`**:
-  * Satır okuma işlemini başlatır ve dosya tanımlayıcısından (fd) veri okur.
-  * Okunan satır bir karakter dizisi olarak geri döndürülür.
-
-* **`ft_strjoin`**:
-  * İki karakter dizisini birleştirir.
-
-* **`ft_strdup`**:
-  * Karakter dizisinin bir kopyasını oluşturur.
-
-* **`ft_strlen`**:
-  * Bir karakter dizisinin uzunluğunu hesaplar.
-
 ### Kurulum:
 
 Projeyi yerel sisteminize klonlamak için aşağıdaki komutu kullanabilirsiniz:
