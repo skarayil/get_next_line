@@ -71,13 +71,13 @@ Proje aşağıdaki dosya yapısına sahiptir:
 ```
 get_next_line/
 │
-├── get_next_line.c               # Ana fonksiyonun bulunduğu dosya. get_next_line() fonksiyonunu içerir.
-├── get_next_line.h               # Header dosyası, fonksiyon prototipleri ve gerekli kütüphaneleri içerir.
-├── get_next_line_utils.c         # Yardımcı fonksiyonların bulunduğu dosya.
-├── README.md                     # Proje hakkında açıklamaları içeren dosya.
-├── get_next_line_bonus.c         # Bonus bölümü: çoklu dosya tanımlayıcıları.
-├── get_next_line_bonus_utils.c   # Bonus yardımcı işlevler.
-├── get_next_line_bonus.h         # Bonus bölümü: Başlık dosyası
+├── get_next_line.c               # `get_next_line()` fonksiyonunun ana işlevini içerir.
+├── get_next_line.h               # Fonksiyon prototipleri ve gerekli kütüphaneleri içerir.
+├── get_next_line_utils.c         # Yardımcı fonksiyonları içerir (bellek kopyalama, string işlemleri vb.).
+├── README.md                     # Proje hakkında bilgi ve kullanım talimatları içerir.
+├── get_next_line_bonus.c         # Bonus özellikler (çoklu dosya tanımlayıcıları) ekler.
+├── get_next_line_bonus_utils.c   # Bonus işlevlerin yardımcı fonksiyonlarını içerir.
+├── get_next_line_bonus.h         # Bonus bölümündeki fonksiyonların prototiplerini içerir.
 
 
 ```
