@@ -104,6 +104,20 @@ while (get_next_line(fd, &line)) {
 close(fd);
 ```
 
+## Test Senaryoları
+
+*  **Satır Okuma:**
+  Dosyadan veya stdin'den bir satır okunur ve doğru şekilde döndürülür.
+
+*  **Dosya Sonu (EOF) Durumu:**
+  Dosyanın sonuna gelindiğinde NULL döndürülür.
+
+*  **Boş Satır:**
+  Boş satırda doğru şekilde boş bir string ("") döndürülür.
+
+*  **Hata Durumları:**
+  Geçersiz dosya tanımlayıcılarında NULL döndürülür.
+
 ## Notlar
 
 * Dosya okuma işlemi, belirtilen dosyanın sonuna kadar devam eder.
