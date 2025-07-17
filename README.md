@@ -1,9 +1,9 @@
 
 # Get Next Line - C Dilinde Satır Okuma Fonksiyonu
 
-**Bu projenin amacı, C dilinde bir dosyadan veya stdin'den satır satır veri okuma işlemini gerçekleştirecek bir fonksiyon yazmaktır. Bu proje, dosya okuma işlemlerine dair temel anlayışı geliştirirken, dinamik bellek yönetimi ve buffer yönetimi gibi konularda deneyim kazandırır.**
+**C dilinde bir dosyadan veya stdin'den satır satır veri okuma işlemini gerçekleştirecek bir fonksiyon yazmaktır. Bu proje, dosya okuma işlemlerine dair temel anlayışı geliştirirken, dinamik bellek yönetimi ve buffer yönetimi gibi konularda deneyim kazandırır.**
 
-## Projenin Amacı:
+## Projenin Amacı
 
 * **Dinamik Bellek Yönetimi:** 
   Proje, her okunan satır için dinamik olarak hafıza ayırmayı gerektirir. Bu işlem, her satırın belleğe doğru şekilde yerleştirilmesi ve sonraki satırlarla karışmaması için yönetilmelidir.
@@ -26,7 +26,7 @@
 * **Test ve Doğrulama:**
   Yazılan fonksiyonlar, farklı dosyalarla test edilerek doğrulukları kontrol edilir. Geliştirilen fonksiyon ile `read()` fonksiyonu arasında karşılaştırmalar yapılır.
 
-## Desteklenen Özellikler:
+## Desteklenen Özellikler
 
 * **`get_next_line(int fd, char **line)`**
   * Dosyadaki bir satırı okur ve bir `char*` dizisine yazdırır.
@@ -43,7 +43,7 @@
 * **Daha Fazla Veri Okuma:**
   * Eğer satırda veri bitmediyse, fonksiyon devam eder ve yeni veri okur.
 
-## Bonus Kısmı:
+## Bonus Kısım
 
 Bonus kısmında, `get_next_line` fonksiyonunun daha esnek hale getirilmesi beklenir. Aşağıdaki özelliklerin eklenmesi gerekmektedir:
 
@@ -80,7 +80,7 @@ get_next_line/
 
 ```
 
-## Kurulum:
+## Kurulum
 
 Projeyi yerel sisteminize klonlamak için aşağıdaki komutu kullanabilirsiniz:
 
@@ -88,7 +88,7 @@ Projeyi yerel sisteminize klonlamak için aşağıdaki komutu kullanabilirsiniz:
 git clone https://github.com/skarayil/get_next_line.git
 ```
 
-## Kullanım:
+## Kullanım
 
 `get_next_line` fonksiyonu, bir dosya tanımlayıcısı alır ve her çağrıldığında bir satır okur. Satır okuma işlemi bittiğinde, fonksiyon sıfır döner veya `NULL` değerini döndürür.
 
@@ -104,7 +104,7 @@ while (get_next_line(fd, &line)) {
 close(fd);
 ```
 
-## Notlar:
+## Notlar
 
 * Dosya okuma işlemi, belirtilen dosyanın sonuna kadar devam eder.
 * `get_next_line` fonksiyonu her satırda belleği doğru şekilde yönetir.
