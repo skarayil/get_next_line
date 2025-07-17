@@ -1,3 +1,4 @@
+
 # Get Next Line - C Dilinde Satır Okuma Fonksiyonu
 
 **Bu projenin amacı, C dilinde bir dosyadan veya stdin'den satır satır veri okuma işlemini gerçekleştirecek bir fonksiyon yazmaktır. Bu proje, dosya okuma işlemlerine dair temel anlayışı geliştirirken, dinamik bellek yönetimi ve buffer yönetimi gibi konularda deneyim kazandırır.**
@@ -42,26 +43,43 @@
 * **Daha Fazla Veri Okuma:**
   * Eğer satırda veri bitmediyse, fonksiyon devam eder ve yeni veri okur.
 
-### Testler ve Örnek Kullanım:
+### Bonus Kısmı:
 
-```c
-#include <fcntl.h>
-#include <stdio.h>
-#include "get_next_line.h"
+Bonus kısmında, `get_next_line` fonksiyonunun daha esnek hale getirilmesi beklenir. Aşağıdaki özelliklerin eklenmesi gerekmektedir:
 
-int main() {
-    int fd = open("example.txt", O_RDONLY);
-    char *line;
+* **Daha Fazla Dosya Tanımlayıcısı Desteği:**
+  `get_next_line` fonksiyonu, sadece bir dosya tanımlayıcısından (fd) veri okumamalıdır. Bonus kısmı ile fonksiyon, birden fazla dosya tanımlayıcısına (fd) aynı anda hizmet verebilecek şekilde geliştirilebilir.
 
-    while (get_next_line(fd, &line) > 0) {
-        printf("%s
-", line);
-        free(line);  // Bellek yönetimi
-    }
+* **Buffer Boyutunun Dinamik Olarak Belirlenmesi:**
+  Buffer boyutunun sabit olmaması gerekir. Kullanıcı tarafından belirtilen bir boyutla dinamik olarak buffer boyutunun belirlenmesi sağlanabilir.
 
-    close(fd);
-    return 0;
-}
+* **Dosya Tanımlayıcıları Arasında Koşullu Okuma:**
+  Bonus kısmında, fonksiyonun birden fazla dosya tanımlayıcısı ile eşzamanlı olarak çalışması sağlanmalıdır. Kullanıcı birden fazla dosya okuma işlemi yaparken her dosyadan sırasıyla veri alabilmelidir.
+
+* **Hata Yönetiminin İyileştirilmesi:**
+  Fonksiyon, hata durumlarını daha ayrıntılı şekilde ele alacak şekilde güncellenebilir. Her dosya tanımlayıcısı için hata kodları döndürülebilir.
+
+* **EOF Durumunun Yönetilmesi:**
+  Fonksiyonun EOF durumunu doğru şekilde yönetmesi ve bir dosyanın sonunda okuma işlemi bitmeden diğer dosyaya geçiş yapması sağlanmalıdır.
+
+
+
+### Dosya Yapısı 📁:
+
+Proje aşağıdaki dosya yapısına sahiptir:
+
+```
+get_next_line/
+│
+├── get_next_line.c               # Ana fonksiyonun bulunduğu dosya. get_next_line() fonksiyonunu içerir.
+├── get_next_line.h               # Header dosyası, fonksiyon prototipleri ve gerekli kütüphaneleri içerir.
+├── get_next_line_utils.c         # Yardımcı fonksiyonların bulunduğu dosya.
+├── README.md                     # Proje hakkında açıklamaları içeren dosya.
+├── get_next_line_bonus.c         # Bonus bölümü: çoklu dosya tanımlayıcıları.
+├── get_next_line_bonus_utils.c   # Bonus yardımcı işlevler.
+├── get_next_line_bonus.h         # Bonus bölümü: Başlık dosyası
+
+
 ```
 
 ### Kurulum:
@@ -69,7 +87,7 @@ int main() {
 Projeyi yerel sisteminize klonlamak için aşağıdaki komutu kullanabilirsiniz:
 
 ```bash
-git clone https://github.com/kullanici_adiniz/get_next_line.git
+git clone https://github.com/skarayil/get_next_line.git
 ```
 
 ### Kullanım:
@@ -96,4 +114,4 @@ close(fd);
 
 ---
 
-### Created by Sude Naz Karayıldırım
+### Created by SUDE NAZ KARAYILDIRIM
