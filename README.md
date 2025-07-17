@@ -90,7 +90,7 @@ git clone https://github.com/skarayil/get_next_line.git
 
 ## Kullanım
 
-`get_next_line` fonksiyonu, bir dosya tanımlayıcısı alır ve her çağrıldığında bir satır okur. Satır okuma işlemi bittiğinde, fonksiyon sıfır döner veya `NULL` değerini döndürür.
+Kitaplık `make` komutu ile derlendikten sonra oluşan `get_next_line.a` dosyasını projenize bağlayarak, `get_next_line.h` başlık dosyasını çağırdıktan sonra, `get_next_line` fonksiyonunu kullanabilirsiniz. get_next_line fonksiyonu, bir dosya tanımlayıcısı alır ve her çağrıldığında bir satır okur. Satır okuma işlemi bittiğinde, fonksiyon sıfır döner veya `NULL` değerini döndürür.
 
 ```c
 #include "get_next_line.h"
